@@ -1,68 +1,72 @@
 import pygame
 import os
-from PIL import Image
 
 pygame.init()
 
 height = 600
 width = 1100
-screen = pygame.display.set_mode((width, height))
+screen = pygame.display.set_mode((width,height))
 
-running = [pygame.image.load(os.path.join("bola.png"))]
+rolling = [pygame.image.load(os.path.join("bola.png"))]
+
 player = [pygame.image.load(os.path.join("player.png"))]
 
-bg = pygame.image.load(os.path.join("slebew.jpg"))
+BG = [pygame.image.load(os.path.join("rumput.jpg"))]
 
 class Ball:
-    x = 80
-    y = 310
+    x_pos = 80
+    y_pos = 310
 
     def __init__(self):
-        self.run_img = running
-        self.ball_run = True
+        self.roll_img = rolling
+
+        self.ball_roll = True
+
         self.step_index = 0
-        self.image = self.run_img[0]
+        self.image = self.roll_img[0]
         self.ball_rect = self.image.get_rect()
-        self.ball_rect.x = self.x
-        self.ball_rect.y = self.y
+        self.ball_rect.x = self.x_pos
+        self.ball_rect.y = self.y_pos
 
-    def update(self):
-        if self.ball_run:
-            self.step_index += 1
+    def update(self,userInput):
+        if self.ball_roll:
+            self.roll()
 
-        if self.step_index >= len(self.run_img):
-            self.step_index = 0
+        # if self.step_index >= 10:
+        #     self.step_index = 0
 
-        self.image = self.run_img[self.step_index]
+        if userInput[pygame.K_SPACE]:
+            self.ball_roll = True
+        
+    def roll(self):
+        self.ball_rect = self.image.get_rect()
+        self.ball_rect.x = self.x_pos
+        self.ball_rect.y = self.y_pos
 
-    def draw(self, screen):
-        screen.blit(self.image, self.ball_rect)
+    def draw(self,screen):
+        screen.blit(self.image,(self.ball_rect.x,self.ball_rect.y))    
+
+
+    def jump(self):
+        pass
 
 def main():
-    run = True
+    roll = True
     clock = pygame.time.Clock()
     ball = Ball()
-
-    while run:
+    while roll:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                run = False
+                roll = False
 
-        screen.blit(bg, (0, 0))  # Menampilkan background
-        userinput = pygame.key.get_pressed()
+        screen.fill((255,255,255))
+        userInput = pygame.key.get_pressed()
 
         ball.draw(screen)
-        ball.update()
+        ball.update(userInput)
 
-        pygame.display.update()
         clock.tick(30)
+        pygame.display.update()
+
 
 main()
-
-# Mengubah ukuran gambar bola
-image = Image.open("bola.png")
-new_width = 200  # Ganti dengan lebar baru yang diinginkan
-new_height = 200  # Ganti dengan tinggi baru yang diinginkan
-resized_image = image.resize((new_width, new_height))
-resized_image.save("bola_resized.png")
-image.close()
