@@ -1,10 +1,2 @@
-<<<<<<< HEAD
-# calculator-projek
-# ball-jump
-# ball-jump
-# ball-jump
-# ball-jump
-# ball-jump
-=======
-# ball-jump
->>>>>>> ecfbbddb42517f0d379edcc01cbe65d0c5cd8f48
+referensi
+https://youtube.com/playlist?list=PL30AETbxgR-fAbwiuU1vDl3owNUPUuVrz&si=2LZJTV5DPKvyX5rz
